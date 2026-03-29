@@ -7,6 +7,10 @@ const api = axios.create({
 
 export async function getBooks(): Promise<Book[]> {
   const response = await api.get<Book[]>("/api/books")
-  console.log("books response:", response.data)
+  return response.data
+}
+
+export async function getBookById(id: string): Promise<Book> {
+  const response = await api.get<Book>(`/api/books/${id}`)
   return response.data
 }

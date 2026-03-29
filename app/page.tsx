@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Book } from "@/lib/api/types"
 import { getBooks } from "@/lib/api/books"
@@ -35,14 +36,16 @@ export default function HomePage() {
       {!loading && !error && (
         <div className="space-y-3">
           {books.map((book) => (
-            <div key={book.itemId} className="rounded-lg border p-4">
-              <h2 className="text-xl font-semibold">{book.bookTitle}</h2>
-              <p>ID: {book.itemId}</p>
-              <p>ISBN: {book.isbn}</p>
-              <p>Pages: {book.pageCount}</p>
-              <p>Available: {book.isAvailable ? "Yes" : "No"}</p>
-              <p>Late Fee: ${book.lateFeeUsd}</p>
-            </div>
+            <Link key={book.itemId} href={`/books/${book.itemId}`}>
+              <div className="cursor-pointer rounded-lg border p-4 hover:bg-gray-50">
+                <h2 className="text-xl font-semibold">{book.bookTitle}</h2>
+                <p>ID: {book.itemId}</p>
+                <p>ISBN: {book.isbn}</p>
+                <p>Pages: {book.pageCount}</p>
+                <p>Available: {book.isAvailable ? "Yes" : "No"}</p>
+                <p>Late Fee: ${book.lateFeeUsd}</p>
+              </div>
+            </Link>
           ))}
         </div>
       )}
