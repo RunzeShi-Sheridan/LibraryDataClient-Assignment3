@@ -39,7 +39,7 @@ export default function BookDetailsPage({ params }: BookDetailsPageProps) {
     <main className="p-6">
       <Link
         href="/"
-        className="mb-4 inline-block text-blue-600 hover:underline"
+        className="mb-6 inline-block text-blue-600 hover:underline"
       >
         ← Back to books
       </Link>
@@ -48,13 +48,29 @@ export default function BookDetailsPage({ params }: BookDetailsPageProps) {
       {error && <p>{error}</p>}
 
       {!loading && !error && book && (
-        <div className="rounded-lg border p-6">
-          <h1 className="mb-4 text-3xl font-bold">{book.bookTitle}</h1>
-          <p>ID: {book.itemId}</p>
-          <p>ISBN: {book.isbn}</p>
-          <p>Pages: {book.pageCount}</p>
-          <p>Available: {book.isAvailable ? "Yes" : "No"}</p>
-          <p>Late Fee: ${book.lateFeeUsd}</p>
+        <div className="rounded-lg border bg-white p-6 shadow-sm">
+          <p className="mb-2 text-sm text-gray-500">Book Details</p>
+          <h1 className="mb-6 text-3xl font-bold">{book.bookTitle}</h1>
+
+          <div className="space-y-2 text-base">
+            <p>
+              <span className="font-semibold">ID:</span> {book.itemId}
+            </p>
+            <p>
+              <span className="font-semibold">ISBN:</span> {book.isbn}
+            </p>
+            <p>
+              <span className="font-semibold">Pages:</span> {book.pageCount}
+            </p>
+            <p>
+              <span className="font-semibold">Available:</span>{" "}
+              {book.isAvailable ? "Yes" : "No"}
+            </p>
+            <p>
+              <span className="font-semibold">Late Fee:</span> $
+              {book.lateFeeUsd}
+            </p>
+          </div>
         </div>
       )}
 

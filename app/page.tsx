@@ -28,25 +28,52 @@ export default function HomePage() {
 
   return (
     <main className="p-6">
-      <h1 className="mb-4 text-3xl font-bold">Library Books</h1>
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold">Library Books</h1>
+        <p className="mt-2 text-sm text-gray-600">
+          Browse the available library collection and open a book to view its
+          details.
+        </p>
+      </div>
 
       {loading && <p>Loading books...</p>}
       {error && <p>{error}</p>}
 
       {!loading && !error && (
-        <div className="space-y-3">
-          {books.map((book) => (
-            <Link key={book.itemId} href={`/books/${book.itemId}`}>
-              <div className="cursor-pointer rounded-lg border p-4 hover:bg-gray-50">
-                <h2 className="text-xl font-semibold">{book.bookTitle}</h2>
-                <p>ID: {book.itemId}</p>
-                <p>ISBN: {book.isbn}</p>
-                <p>Pages: {book.pageCount}</p>
-                <p>Available: {book.isAvailable ? "Yes" : "No"}</p>
-                <p>Late Fee: ${book.lateFeeUsd}</p>
-              </div>
-            </Link>
-          ))}
+        <div className="overflow-x-auto rounded-lg border bg-white shadow-sm">
+          <table className="min-w-full border-collapse">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="border-b px-4 py-3 text-left">Title</th>
+                <th className="border-b px-4 py-3 text-left">ID</th>
+                <th className="border-b px-4 py-3 text-left">ISBN</th>
+                <th className="border-b px-4 py-3 text-left">Pages</th>
+                <th className="border-b px-4 py-3 text-left">Available</th>
+                <th className="border-b px-4 py-3 text-left">Late Fee</th>
+              </tr>
+            </thead>
+            <tbody>
+              {books.map((book) => (
+                <tr key={book.itemId} className="hover:bg-gray-50">
+                  <td className="border-b px-4 py-3">
+                    <Link
+                      href={`/books/${book.itemId}`}
+                      className="font-medium text-blue-600 hover:underline"
+                    >
+                      {book.bookTitle}
+                    </Link>
+                  </td>
+                  <td className="border-b px-4 py-3">{book.itemId}</td>
+                  <td className="border-b px-4 py-3">{book.isbn}</td>
+                  <td className="border-b px-4 py-3">{book.pageCount}</td>
+                  <td className="border-b px-4 py-3">
+                    {book.isAvailable ? "Yes" : "No"}
+                  </td>
+                  <td className="border-b px-4 py-3">${book.lateFeeUsd}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </main>
